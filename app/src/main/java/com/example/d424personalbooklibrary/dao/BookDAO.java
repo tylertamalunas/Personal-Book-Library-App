@@ -22,6 +22,15 @@ public interface BookDAO {
     @Delete
     void delete(Book book);
 
-    @Query("SELECT * FROM books ORDER BY bookID ASC")
+    // get all books
+    @Query("SELECT * FROM books ORDER BY title ASC")
     List<Book> getAllBooks();
+
+    //get books by author
+    @Query("SELECT * FROM books WHERE author = :author ORDER BY title ASC")
+    List<Book> getBooksByAuthor(String author);
+
+    // get books by genre
+    @Query("SELECT * FROM books WHERE genre = :genre ORDER BY title ASC")
+    List<Book> getBooksByGenre(String genre);
 }
