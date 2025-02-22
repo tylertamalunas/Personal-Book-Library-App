@@ -10,11 +10,11 @@ public class Book {
     private String title;
     private String author;
     private String genre;
-    private int ISBN;
+    private String ISBN; // optional
     private String dateAdded;
     private String description; // optional
 
-    public Book(int bookID, String title, String author, String genre, int ISBN, String dateAdded, String description) {
+    public Book(int bookID, String title, String author, String genre, String ISBN, String dateAdded, String description) {
         this.bookID = bookID;
         this.title = title;
         this.author = author;
@@ -56,11 +56,11 @@ public class Book {
         this.genre = genre;
     }
 
-    public int getISBN() {
+    public String getISBN() {
         return ISBN;
     }
 
-    public void setISBN(int ISBN) {
+    public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
 

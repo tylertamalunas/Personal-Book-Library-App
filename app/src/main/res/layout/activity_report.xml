@@ -1,0 +1,31 @@
+<!-- res/layout/activity_report.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Report Timestamp -->
+    <TextView
+        android:id="@+id/textViewReportTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Report generated on: [timestamp]"
+        android:textAppearance="?attr/textAppearanceSubtitle1"/>
+
+    <!-- Search View for Report Filtering -->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchViewReport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="Filter report..."/>
+
+    <!-- RecyclerView for Report Data -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewReport"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="8dp"/>
+</LinearLayout>
