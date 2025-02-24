@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,10 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.d424personalbooklibrary.R;
 import com.example.d424personalbooklibrary.entities.Book;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
-    private List<Book> mBooks;
+public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> implements Filterable {
+    private List<Book> mBooks; // all books in library
+    private List<Book> mBooksFilter; // just the list of filtered books
     private final Context context;
     private final LayoutInflater mInflator;
     public BookAdapter(Context context) {
@@ -79,8 +83,44 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         } else return 0;
     }
 
+    @Override
+    public Filter getFilter() {
+        return bookFilter;
+    }
+
+    private Filter bookFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Book> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(mBooksFilter);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (Book book : mBooksFilter) {
+                    if (book.getTitle().toLowerCase().contains(filterPattern) ||
+                            book.getAuthor().toLowerCase().contains(filterPattern) ||
+                            book.getGenre().toLowerCase().contains(filterPattern) ||
+                            book.getISBN().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(book);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mBooks.clear();
+            mBooks.addAll((List<Book>) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
     public void setBooks(List<Book> books) {
         mBooks = books;
+        mBooksFilter = new ArrayList<>(books);
         notifyDataSetChanged();
     }
 }
