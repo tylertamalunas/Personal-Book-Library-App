@@ -31,7 +31,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
-            bookTitle = itemView.findViewById(R.id.bookAuthorTextView);
+            bookTitle = itemView.findViewById(R.id.bookTitleTextView);
             bookAuthor = itemView.findViewById(R.id.bookAuthorTextView);
             bookGenre = itemView.findViewById(R.id.bookGenreTextView);
             itemView.setOnClickListener(view -> {
