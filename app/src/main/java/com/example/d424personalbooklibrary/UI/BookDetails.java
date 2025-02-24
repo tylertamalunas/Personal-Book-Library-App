@@ -62,22 +62,25 @@ public class BookDetails extends AppCompatActivity {
         editAuthor = findViewById(R.id.editBookAuthor);
         editGenre = findViewById(R.id.editBookGenre);
         editISBN = findViewById(R.id.editBookISBN);
-        editDescription = findViewById(R.id.editBookDescription);
         editDate = findViewById(R.id.purchaseDate);
+        editDescription = findViewById(R.id.editBookDescription);
 
         bookID = getIntent().getIntExtra("id", -1);
         title = getIntent().getStringExtra("title");
         author = getIntent().getStringExtra("author");
         genre = getIntent().getStringExtra("genre");
-        description = getIntent().getStringExtra("description");
         ISBN = getIntent().getStringExtra("ISBN");
         dateAdded = getIntent().getStringExtra("dateadded");
+        description = getIntent().getStringExtra("description");
+
 
         editTitle.setText(title);
         editAuthor.setText(author);
+        editGenre.setText(genre);
         editISBN.setText(ISBN);
-        editDescription.setText(description);
         editDate.setText(dateAdded);
+        editDescription.setText(description);
+
 
         String myFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
@@ -100,6 +103,13 @@ public class BookDetails extends AppCompatActivity {
             new DatePickerDialog(BookDetails.this, bookDateAdded, myCalendarDate.get(Calendar.YEAR),
                     myCalendarDate.get(Calendar.MONTH), myCalendarDate.get(Calendar.DAY_OF_MONTH)).show();
         });
+
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 
     private void updateLabel() {
@@ -116,6 +126,10 @@ public class BookDetails extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
         // back button action?
         if (item.getItemId() == R.id.booksave) {
             Book book;
@@ -123,10 +137,10 @@ public class BookDetails extends AppCompatActivity {
                 if (repository.getmAllBooks().isEmpty()) bookID = 1;
                 else
                     bookID = repository.getmAllBooks().get(repository.getmAllBooks().size() - 1).getBookID() + 1;
-                book = new Book(bookID, editTitle.getText().toString(), editAuthor.getText().toString(), editGenre.getText().toString(), editISBN.getText().toString(), editDescription.getText().toString(), editDate.getText().toString());
+                book = new Book(bookID, editTitle.getText().toString(), editAuthor.getText().toString(), editGenre.getText().toString(), editISBN.getText().toString(), editDate.getText().toString(), editDescription.getText().toString());
                 repository.insert(book);
             } else {
-                book = new Book(bookID, editTitle.getText().toString(), editAuthor.getText().toString(), editGenre.getText().toString(), editISBN.getText().toString(), editDescription.getText().toString(), editDate.getText().toString());
+                book = new Book(bookID, editTitle.getText().toString(), editAuthor.getText().toString(), editGenre.getText().toString(), editISBN.getText().toString(), editDate.getText().toString(), editDescription.getText().toString());
                 repository.update(book);
             }
             finish();
