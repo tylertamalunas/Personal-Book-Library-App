@@ -1,4 +1,4 @@
-<!-- res/layout/activity_report.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -6,26 +6,20 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Report Timestamp -->
+    <!-- Report Header -->
     <TextView
-        android:id="@+id/textViewReportTimestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Report generated on: [timestamp]"
-        android:textAppearance="?attr/textAppearanceSubtitle1"/>
-
-    <!-- Search View for Report Filtering -->
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchViewReport"
+        android:id="@+id/reportHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:queryHint="Filter report..."/>
+        android:text="Library Report"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:textAlignment="center"
+        android:padding="8dp"/>
 
     <!-- RecyclerView for Report Data -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewReport"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingTop="8dp"/>
+        android:layout_weight="1"/>
 </LinearLayout>

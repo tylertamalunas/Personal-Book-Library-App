@@ -69,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        findViewById(R.id.btnViewReport).setOnClickListener(v -> {
+            Intent reportIntent = new Intent(MainActivity.this, ReportActivity.class);
+            startActivity(reportIntent);
+        });
     }
 
     @Override
