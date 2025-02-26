@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -57,7 +58,9 @@ public class ReportActivity extends AppCompatActivity {
 
         // load all books
         repository = new Repository(getApplication());
-        allBooks = repository.getmAllBooks();
+        repository.getmAllBooks().observe(this, books -> {
+            allBooks = books;
+        });
 
         // setup spinner
         String[] reportOptions = {"All Books", "By Author", "By Genre"};
@@ -86,6 +89,10 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     private void generateReport() {
+        if (allBooks == null || allBooks.isEmpty()) {
+            Toast.makeText(this, "No books available to generate report", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String selected = (String) spinnerReportType.getSelectedItem();
         List<Book> filteredBooks = new ArrayList<>();
         if (selected.equals("All Books")) {

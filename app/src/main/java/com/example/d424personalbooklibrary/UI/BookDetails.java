@@ -24,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class BookDetails extends AppCompatActivity {
@@ -70,7 +71,7 @@ public class BookDetails extends AppCompatActivity {
         author = getIntent().getStringExtra("author");
         genre = getIntent().getStringExtra("genre");
         ISBN = getIntent().getStringExtra("ISBN");
-        dateAdded = getIntent().getStringExtra("dateadded");
+        dateAdded = getIntent().getStringExtra("datepurchased");
         description = getIntent().getStringExtra("description");
 
 
@@ -100,8 +101,7 @@ public class BookDetails extends AppCompatActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            new DatePickerDialog(BookDetails.this, bookDateAdded, myCalendarDate.get(Calendar.YEAR),
-                    myCalendarDate.get(Calendar.MONTH), myCalendarDate.get(Calendar.DAY_OF_MONTH)).show();
+            new DatePickerDialog(BookDetails.this, bookDateAdded, myCalendarDate.get(Calendar.YEAR), myCalendarDate.get(Calendar.MONTH), myCalendarDate.get(Calendar.DAY_OF_MONTH)).show();
         });
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
@@ -134,10 +134,7 @@ public class BookDetails extends AppCompatActivity {
         if (item.getItemId() == R.id.booksave) {
             Book book;
             if (bookID == -1) {
-                if (repository.getmAllBooks().isEmpty()) bookID = 1;
-                else
-                    bookID = repository.getmAllBooks().get(repository.getmAllBooks().size() - 1).getBookID() + 1;
-                book = new Book(bookID, editTitle.getText().toString(), editAuthor.getText().toString(), editGenre.getText().toString(), editISBN.getText().toString(), editDate.getText().toString(), editDescription.getText().toString());
+                book = new Book(0, editTitle.getText().toString(), editAuthor.getText().toString(), editGenre.getText().toString(), editISBN.getText().toString(), editDate.getText().toString(), editDescription.getText().toString());
                 repository.insert(book);
             } else {
                 book = new Book(bookID, editTitle.getText().toString(), editAuthor.getText().toString(), editGenre.getText().toString(), editISBN.getText().toString(), editDate.getText().toString(), editDescription.getText().toString());
@@ -147,21 +144,24 @@ public class BookDetails extends AppCompatActivity {
             return true;
         }
         if (item.getItemId() == R.id.bookdelete) {
-            for (Book book : repository.getmAllBooks()) {
-                if (book.getBookID() == bookID) currentBook = book;
+            List<Book> books = repository.getmAllBooks().getValue();
+            if (books != null) {
+                for (Book book : books) {
+                    if (book.getBookID() == bookID) {
+                        currentBook = book;
+                        break;
+                    }
+                }
             }
-            repository.delete(currentBook);
-            Toast.makeText(BookDetails.this, currentBook.getTitle() + "was deleted.", Toast.LENGTH_SHORT).show();
-            BookDetails.this.finish();
+            if (currentBook != null) {
+                repository.delete(currentBook);
+                Toast.makeText(BookDetails.this, currentBook.getTitle() + "was deleted.", Toast.LENGTH_SHORT).show();
+            }
+            finish();
         }
         if (item.getItemId() == R.id.bookshare) {
             String bookTitle = editTitle.getText().toString();
-            String bookDetails = "Here are the details for a book that I have!\n\n" +
-                    "Title: " + editTitle.getText().toString() + "\n" +
-                    "Author: " + editAuthor.getText().toString() + "\n" +
-                    "Genre: " + editGenre.getText().toString() + "\n" +
-                    "ISBN: " + editISBN.getText().toString() + "\n" +
-                    "Description: " + editDescription.getText().toString();
+            String bookDetails = "Here are the details for a book that I have!\n\n" + "Title: " + editTitle.getText().toString() + "\n" + "Author: " + editAuthor.getText().toString() + "\n" + "Genre: " + editGenre.getText().toString() + "\n" + "ISBN: " + editISBN.getText().toString() + "\n" + "Description: " + editDescription.getText().toString();
 
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
@@ -175,5 +175,4 @@ public class BookDetails extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // do i need an onResume?
 }

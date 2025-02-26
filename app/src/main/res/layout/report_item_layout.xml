@@ -1,48 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="8dp">
+    android:orientation="vertical">
 
-    <!-- Row Number -->
-    <TextView
-        android:id="@+id/reportRowNumber"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+    <!-- Row container with padding and margin -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1" />
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
-    <!-- Book Title -->
-    <TextView
-        android:id="@+id/reportTitle"
-        android:layout_width="0dp"
-        android:layout_weight="3"
-        android:layout_height="wrap_content"
-        android:text="Title" />
+        <!-- Row Number Column -->
+        <TextView
+            android:id="@+id/rowNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:padding="4dp"
+            android:text="1"
+            android:textAppearance="?attr/textAppearanceBody1" />
 
-    <!-- Book Author -->
-    <TextView
-        android:id="@+id/reportAuthor"
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="wrap_content"
-        android:text="Author" />
+        <!-- Book Title Column -->
+        <TextView
+            android:id="@+id/reportTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:padding="4dp"
+            android:text="Title" />
 
-    <!-- Book Genre -->
-    <TextView
-        android:id="@+id/reportGenre"
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="wrap_content"
-        android:text="Genre" />
+        <!-- Book Author Column -->
+        <TextView
+            android:id="@+id/reportAuthor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:padding="4dp"
+            android:text="Author" />
 
-    <!-- Date Added -->
-    <TextView
-        android:id="@+id/reportDateAdded"
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="wrap_content"
-        android:text="Date" />
+        <!-- Book Genre Column -->
+        <TextView
+            android:id="@+id/reportGenre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:padding="4dp"
+            android:text="Genre" />
+
+        <!-- Date Added Column -->
+        <TextView
+            android:id="@+id/reportDateAdded"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:padding="4dp"
+            android:text="Date" />
+    </LinearLayout>
+
+    <!-- Divider for visual separation between rows -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC" />
 </LinearLayout>

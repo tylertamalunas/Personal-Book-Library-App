@@ -26,7 +26,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
 
         public ReportViewHolder(@NonNull View itemView) {
             super(itemView);
-            rowNumberTextView = itemView.findViewById(R.id.reportRowNumber);
+            rowNumberTextView = itemView.findViewById(R.id.rowNumber);
             tvTitle = itemView.findViewById(R.id.reportTitle);
             tvAuthor = itemView.findViewById(R.id.reportAuthor);
             tvGenre = itemView.findViewById(R.id.reportGenre);

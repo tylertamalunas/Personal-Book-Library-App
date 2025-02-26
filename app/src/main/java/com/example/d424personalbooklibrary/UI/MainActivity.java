@@ -2,6 +2,7 @@ package com.example.d424personalbooklibrary.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
@@ -14,10 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.d424personalbooklibrary.R;
 import com.example.d424personalbooklibrary.database.Repository;
-import com.example.d424personalbooklibrary.entities.Book;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
+import com.google.android.material.button.MaterialButton;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,23 +34,24 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // set up fab for new books
-        FloatingActionButton fab = findViewById(R.id.fabAddBook);
-        fab.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, BookDetails.class);
-            startActivity(intent);
-        });
-
         // set up recyclerview and adapter
         recyclerView = findViewById(R.id.booksRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         bookAdapter = new BookAdapter(this);
         recyclerView.setAdapter(bookAdapter);
 
-        // get data from repo and update adapter
-        repository = new Repository(getApplication());
-        List<Book> allBooks = repository.getmAllBooks();
-        bookAdapter.setBooks(allBooks);
+        // buttons setup
+        MaterialButton btnViewReport = findViewById(R.id.btnViewReport);
+        MaterialButton btnAddBook = findViewById(R.id.btnAddBook);
+
+        btnViewReport.setOnClickListener(v -> {
+            Intent reportIntent = new Intent(MainActivity.this, ReportActivity.class);
+            startActivity(reportIntent);
+        });
+        btnAddBook.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, BookDetails.class);
+            startActivity(intent);
+        });
 
         // set up searchview to filter adapter
         SearchView searchView = findViewById(R.id.searchView);
@@ -70,16 +69,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.btnViewReport).setOnClickListener(v -> {
-            Intent reportIntent = new Intent(MainActivity.this, ReportActivity.class);
-            startActivity(reportIntent);
+        // initialize repo and view changes
+        repository = new Repository(getApplication());
+        repository.getmAllBooks().observe(this, books -> {
+            bookAdapter.setBooks(books);
         });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        List<Book> allBooks = repository.getmAllBooks();
-        bookAdapter.setBooks(allBooks);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.d424personalbooklibrary.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -23,14 +24,7 @@ public interface BookDAO {
     void delete(Book book);
 
     // get all books
-    @Query("SELECT * FROM books ORDER BY title ASC")
-    List<Book> getAllBooks();
+    @Query("SELECT * FROM books")
+    LiveData<List<Book>> getAllBooks();
 
-    //get books by author
-    @Query("SELECT * FROM books WHERE author = :author ORDER BY title ASC")
-    List<Book> getBooksByAuthor(String author);
-
-    // get books by genre
-    @Query("SELECT * FROM books WHERE genre = :genre ORDER BY title ASC")
-    List<Book> getBooksByGenre(String genre);
 }

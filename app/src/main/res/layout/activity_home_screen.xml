@@ -7,65 +7,76 @@
     android:layout_height="match_parent"
     tools:context="UI.MainActivity">
 
-    <!-- maybe add reports into a menu item option? -->
-
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:textAlignment="center"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="My Personal Book Library" />
+        app:title="My Personal Book Library"
+        app:titleTextColor="@android:color/white" />
 
+    <!-- SearchView -->
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_margin="8dp"
         android:queryHint="Search books..."
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
+    <!-- RecyclerView for Book List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/booksRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="8dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintTop_toBottomOf="@id/searchView"
         tools:listitem="@layout/activity_book_item_layout" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddBook"
-        android:layout_width="wrap_content"
+    <!-- Bottom Action Container -->
+    <LinearLayout
+        android:id="@+id/bottomContainer"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="64dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/baseline_add_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/btnViewReport"
-        android:layout_width="148dp"
-        android:layout_height="40dp"
-        android:text="View Report"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fabAddBook" />
+        app:layout_constraintStart_toStartOf="parent">
 
+        <!-- View Report Button (Outlined) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnViewReport"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="View Report"
+            app:cornerRadius="16dp" />
+
+        <!-- Add Book Button (Contained Extended Button) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddBook"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/baseline_add_24"
+            android:text="Add Book"
+            app:cornerRadius="16dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

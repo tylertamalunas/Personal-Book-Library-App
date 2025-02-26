@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F8F8F8">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,22 +11,33 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Report Header -->
+        <!-- Toolbar for Back Navigation -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/reportToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:title="Library Report"
+            android:titleTextColor="@android:color/white" />
+
+        <!-- Report Header: Title and Timestamp -->
         <TextView
             android:id="@+id/reportHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="12dp"
             android:text="Library Report"
-            android:textAppearance="?attr/textAppearanceHeadline6"
             android:textAlignment="center"
-            android:padding="8dp"/>
+            android:textAppearance="?attr/textAppearanceHeadline6" />
 
         <!-- Spinner to select report type -->
         <Spinner
             android:id="@+id/spinnerReportType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:padding="8dp" />
 
         <!-- EditText for filter input (enabled only for Author or Genre reports) -->
         <EditText
@@ -33,19 +45,88 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:background="@android:drawable/edit_text"
+            android:enabled="false"
             android:hint="Enter author or genre"
-            android:enabled="false" />
+            android:padding="8dp" />
 
         <!-- Button to generate report -->
         <Button
             android:id="@+id/btnGenerateReport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Generate Report"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:text="Generate Report" />
 
-        <!-- RecyclerView for displaying report data -->
+        <!-- Total Count of Books -->
+        <TextView
+            android:id="@+id/txtTotalCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Total Books: 0"
+            android:textAppearance="?attr/textAppearanceSubtitle1" />
+
+        <!-- Static Header Row for Column Titles -->
+        <LinearLayout
+            android:id="@+id/headerRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#DDDDDD"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/colNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:padding="4dp"
+                android:text="#"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/colTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:padding="4dp"
+                android:text="Title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/colAuthor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:padding="4dp"
+                android:text="Author"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/colGenre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="4dp"
+                android:text="Genre"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/colDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="4dp"
+                android:text="Date"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- RecyclerView to Display Report Data -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewReport"
             android:layout_width="match_parent"
