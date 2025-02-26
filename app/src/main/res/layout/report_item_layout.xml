@@ -6,35 +6,43 @@
     android:orientation="horizontal"
     android:padding="8dp">
 
-    <!-- Book Title Column -->
+    <!-- Row Number -->
+    <TextView
+        android:id="@+id/reportRowNumber"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="1" />
+
+    <!-- Book Title -->
     <TextView
         android:id="@+id/reportTitle"
         android:layout_width="0dp"
+        android:layout_weight="3"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
         android:text="Title" />
 
-    <!-- Book Author Column -->
+    <!-- Book Author -->
     <TextView
         android:id="@+id/reportAuthor"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_weight="2"
+        android:layout_height="wrap_content"
         android:text="Author" />
 
-    <!-- Book Genre Column -->
+    <!-- Book Genre -->
     <TextView
         android:id="@+id/reportGenre"
         android:layout_width="0dp"
+        android:layout_weight="2"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="Genre" />
 
-    <!-- Date Added Column -->
+    <!-- Date Added -->
     <TextView
         android:id="@+id/reportDateAdded"
         android:layout_width="0dp"
+        android:layout_weight="2"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="Date" />
 </LinearLayout>

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.d424personalbooklibrary.R;
 import com.example.d424personalbooklibrary.entities.Book;
 
-import org.jetbrains.annotations.NonNls;
 
 import java.util.List;
 
@@ -23,9 +22,11 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
     }
 
     public class ReportViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvAuthor, tvGenre, tvDateAdded;
+        TextView rowNumberTextView, tvTitle, tvAuthor, tvGenre, tvDateAdded;
+
         public ReportViewHolder(@NonNull View itemView) {
             super(itemView);
+            rowNumberTextView = itemView.findViewById(R.id.reportRowNumber);
             tvTitle = itemView.findViewById(R.id.reportTitle);
             tvAuthor = itemView.findViewById(R.id.reportAuthor);
             tvGenre = itemView.findViewById(R.id.reportGenre);
@@ -43,6 +44,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
     @Override
     public void onBindViewHolder(@NonNull ReportViewHolder holder, int position) {
         Book book = bookList.get(position);
+        holder.rowNumberTextView.setText(String.valueOf(position + 1));
         holder.tvTitle.setText(book.getTitle());
         holder.tvAuthor.setText(book.getAuthor());
         holder.tvGenre.setText(book.getGenre());
