@@ -27,4 +27,8 @@ public interface BookDAO {
     @Query("SELECT * FROM books")
     LiveData<List<Book>> getAllBooks();
 
+    @Query("SELECT * FROM books WHERE title LIKE :query")
+        // for unit testing purposes
+    LiveData<List<Book>> searchBooks(String query);
+
 }

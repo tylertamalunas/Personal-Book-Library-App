@@ -41,4 +41,5 @@ dependencies {
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
     androidTestImplementation(libs.room.testing)
+    testImplementation libs.room.testing
 }

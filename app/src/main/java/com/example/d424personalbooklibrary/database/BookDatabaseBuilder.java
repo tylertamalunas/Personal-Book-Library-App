@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.example.d424personalbooklibrary.dao.BookDAO;
 import com.example.d424personalbooklibrary.entities.Book;
 
-@Database(entities = {Book.class}, version = 2, exportSchema = false)
+@Database(entities = {Book.class}, version = 4, exportSchema = false)
 public abstract class BookDatabaseBuilder extends RoomDatabase {
     public abstract BookDAO bookDAO();
 
