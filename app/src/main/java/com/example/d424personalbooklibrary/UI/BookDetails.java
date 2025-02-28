@@ -144,20 +144,21 @@ public class BookDetails extends AppCompatActivity {
             return true;
         }
         if (item.getItemId() == R.id.bookdelete) {
-            List<Book> books = repository.getmAllBooks().getValue();
-            if (books != null) {
-                for (Book book : books) {
-                    if (book.getBookID() == bookID) {
-                        currentBook = book;
-                        break;
+            repository.getmAllBooks().observe(this, books -> {
+                if (books != null) {
+                    for (Book book : books) {
+                        if (book.getBookID() == bookID) {
+                            currentBook = book;
+                            break;
+                        }
+                    }
+                    if (currentBook != null) {
+                        repository.delete(currentBook);
+                        Toast.makeText(BookDetails.this, currentBook.getTitle() + " was deleted.", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 }
-            }
-            if (currentBook != null) {
-                repository.delete(currentBook);
-                Toast.makeText(BookDetails.this, currentBook.getTitle() + "was deleted.", Toast.LENGTH_SHORT).show();
-            }
-            finish();
+            });
         }
         if (item.getItemId() == R.id.bookshare) {
             String bookTitle = editTitle.getText().toString();
@@ -174,5 +175,4 @@ public class BookDetails extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
